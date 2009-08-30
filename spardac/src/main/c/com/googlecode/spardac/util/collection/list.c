@@ -120,14 +120,13 @@ void add_element(const list_t list, void *elementPtr) {
 	list_element *new_tail;
 	new_tail = new_element();
 	new_tail->obj = elementPtr;
-	if(list->head == NULL) { //if list is empty, so set head and tail
+	if(list->head == NULL) { //if list is empty, so set head
 		list->head = new_tail;
-		list->tail = new_tail;
 	} else {
 		new_tail->prev = list->tail;
 		list->tail->next = new_tail;
-		list->tail = new_tail;
 	}
+	list->tail = new_tail; //set new tail
 	list->number_of_element++; // update element counter
 }
 
