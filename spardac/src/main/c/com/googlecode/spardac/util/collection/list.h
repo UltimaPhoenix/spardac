@@ -2,7 +2,7 @@
 #define LIST_H_
 
 /*
- * Rappresente un elemento della lista.
+ * Represent a list element.
  */
 typedef struct element {
 	void  *obj;
@@ -11,7 +11,7 @@ typedef struct element {
 } list_element;
 
 /*
- * Rappresenta il tipo lista.
+ * Represent a list.
  */
 typedef struct list {
 	list_element *head;
@@ -21,70 +21,71 @@ typedef struct list {
 
 
 /*
- * Crea una lista.
+ * Create new list.
  */
-list_t alloc_list();                       //alloca una lista
+list_t new_list();
 
 /*
- * Libera la lista.
+ * Free the list.
  */
-void free_list(const list_t lista);            //dealloca una lista
+void free_list(const list_t list);
 
 /*
- * Libera la lista e tutti i suoi elementi.
+ * Free the list calling free on all list element.
  */
-void free_list_and_object(const list_t lista);
+void free_list_and_object(const list_t list);
 
 /*
- * Ritorna il numero di elementi nella lista.
+ * Return the number of element in list.
  */
-int size_list(const list_t lista);
+int size_list(const list_t list);
 
 /*
- * Aggiunge l'elemento alla lista
+ * Add an element to the list. The element is added at the end of this list.
  */
-void add_element(const list_t lista, void *elementPtr);   //aggiunge in fondo un elemento
+void add_element(const list_t list, void *elementPtr);
 
 /*
- * Aggiunge l'elemento alla lista solo se assente secondo la rispettiva funzione di comparazione.
+ * Add an element to the list only if absent. The element is added at the end of this list.
  */
-void add_element_if_absent(const list_t lista, void *elementPtr, int (*comapare_function) (void* a, void* b));
+void add_element_if_absent(const list_t list, void *elementPtr, int (*compare_function) (void* a, void* b));
 
 /*
- * Rimuove l'elemento dalla lista.
+ * Remove an element from the list.
  */
-int remove_element(const list_t lista, void *element_to_remove); //rimuove un elemento
+int remove_element(const list_t list, void *element_to_remove);
 
 /*
- * Rimuove l'elemento dalla lista applicando la funziopne di verifica di uguaglianza.
+ * Remove an element from the list with the respect compare function.
  */
-int remove_element_function(const list_t lista, void *element_to_remove, int (*compare_function) (void* a, void* b)); //rimuove un elemento
+int remove_element_function(const list_t list, void *element_to_remove, int (*compare_function) (void* a, void* b));
 
 /*
- * Tipo iteratore per iterare sugli elementi di una lista
+ * Iterator of a list.
  */
 typedef struct iterator {
 	list_element *element;
 } *iterator_t;
 
 /*
- * Consente di creare un iteratore per una lista.
+ * Create new list iterator.
  */
-iterator_t create_iterator(const list_t lista); //crea un iteratore sulla lista
+iterator_t new_iterator(const list_t list);
 
 /*
- * Dealloca l'iteratore
+ * Free the iterator.
  */
-void free_iterator(const iterator_t it);      //dealloca un iteratore
+void free_iterator(const iterator_t it);
 
 /*
- * Ritorna 1 se ci sono elementi da iterare e 0 altrimenti.
+ * Return 1 if there are element to iterate, 0 otherwise.
  */
-int has_next(const iterator_t it);            //iterazione finita?
+int has_next(const iterator_t it);
 
 /*
- * Ritorna l'elemento corrente della lista e sposta l'iteratore sul prossimo elemento. 
+ * Return the next element and move iterator to next element.
+ * Return NULL if the end of the list is reached ended.
  */
-void* next(const iterator_t it);             //prossimo elemento, NULL se finiti
+void* next(const iterator_t it);
 
 #endif /*LIST_H_*/
